@@ -5,6 +5,8 @@ import logging
 import os
 import sys
 import traceback
+from tornado.httpserver import HTTPServer
+
 import tornado.ioloop
 import tornado.web
 import json
@@ -114,9 +116,14 @@ if __name__ == "__main__":
 
     ])
     cfg = config_reader()
-    application.listen(9888)
-    loop = asyncio.get_event_loop()
-    loop.run_forever()
+
+    http_server = HTTPServer(application)
+    http_server.bind(9888)
+    http_server.start(0)
+    tornado.ioloop.IOLoop.current().start()
+
+    # loop = asyncio.get_event_loop()
+    # loop.run_forever()
 
     # tornado.ioloop.IOLoop.current().start()
 
