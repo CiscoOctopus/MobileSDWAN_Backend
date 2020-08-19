@@ -1,0 +1,63 @@
+module asauser {
+  namespace "http://com/example/asauser";
+  prefix asauser;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+  import tailf-common {
+  prefix tailf;
+  }
+
+  augment /ncs:services {
+    list asauser {
+      tailf:info "Add new user on ASA";
+      key username;
+      uses ncs:service-data;
+      ncs:servicepoint "asauser";
+
+      leaf company_name {
+        tailf:info "input a username";
+        mandatory true;
+        type string {
+          length "1..255";
+        }
+      }
+      leaf username {
+        tailf:info "input a username";
+        mandatory true;
+        type string {
+          length "1..255";
+        }
+      }
+      leaf password {
+        tailf:info "input a password";
+        mandatory true;
+        type string {
+          length "1..255";
+        }
+      }
+      leaf vpn_group_id {
+        tailf:info "input a correct vpn group name";
+        mandatory true;
+        type uint32 {
+          range "1..4096";
+        }
+      }
+      list device {
+        tailf:info "ASA devices";
+        key name;
+        leaf name {
+          tailf:info "Device name";
+          mandatory true;
+          type leafref {
+            path "/ncs:devices/ncs:device/ncs:name";
+          }
+        }  
+      }
+    }
+  }
+}
