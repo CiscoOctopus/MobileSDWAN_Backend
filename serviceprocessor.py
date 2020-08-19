@@ -46,7 +46,8 @@ class ServiceProcessor(object):
                     "company_name":service["company_name"],
                     "devices":[i["name"] for i in service["device"]]
                 })
-        return current_service
+        sorted_data = sorted(current_service,key=lambda k:k["company_name"])
+        return sorted_data
 
 
     async def get_service_by_name(self,username):
