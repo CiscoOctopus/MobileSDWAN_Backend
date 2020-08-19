@@ -98,6 +98,17 @@ class LatencyHandler(BaseHandler):
             self.write(json.dumps({"error":e}))
             self.set_status(400)
 
+class ServerHandler(BaseHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    async def get(self):
+        try:
+            self.write(json.dumps(cfg["devices"]))
+        except Exception as e:
+            self.write(json.dumps({"error":e}))
+            self.set_status(400)
+
 
 def config_reader():
     with open("config.yaml") as file:
@@ -112,7 +123,8 @@ if __name__ == "__main__":
     application = tornado.web.Application([
         (r"/api/v1/vpn", VpnHandler),
         (r"/api/v1/vpn/(.[a-zA-Z0-9]+)", VpnDetailHandler),
-        (r"/api/v1/latency", LatencyHandler)
+        (r"/api/v1/latency", LatencyHandler),
+        (r"/api/v1/server", ServerHandler),
 
     ])
     cfg = config_reader()
