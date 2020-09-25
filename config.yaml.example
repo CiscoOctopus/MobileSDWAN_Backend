@@ -1,0 +1,10 @@
+nso:
+  address: 1.1.1.1
+  port: 1000
+  username: admin
+  password: admin
+
+devices:
+  ASABJ: 1.1.1.1
+  ASASH: 2.2.2.2
+  ASASZ: 3.3.3.3

@@ -19,6 +19,11 @@ make all
 Install Python Backend:
 ```bash
 pip install -r requirements.txt
+mv config.yaml.example config.yaml
+vi config.yaml
+# Modify the NSO info to fit your environment
+# Also modify the ASAServer IP to fit correct server.
+# Then run
 python3 ./main.py
 ```
 And your server will be running at 9888 port.
