@@ -22,6 +22,14 @@ class ServiceProcessor(object):
         }
 
     async def create_service(self,username,company_name,password):
+        """
+        Create new vpn service
+        :param username: vpn username
+        :param company_name: vpn company name
+        :param password: vpn password
+        :return: true if success
+        """
+
         if not self.mapping.get(company_name):
             raise Exception("Invalid company name")
 
@@ -37,6 +45,10 @@ class ServiceProcessor(object):
         return True
 
     async def get_service(self):
+        """
+        Get VPN Service info
+        :return: Vpn info dict
+        """
         data = await self.nso.get("restconf/data/tailf-ncs:services/asauser:asauser")
         current_service = []
         if data:
@@ -51,6 +63,11 @@ class ServiceProcessor(object):
 
 
     async def get_service_by_name(self,username):
+        """
+        Get VPN Service info
+        :param username: usename
+        :return: vpn info dict
+        """
         data = await self.nso.get(f"restconf/data/tailf-ncs:services/asauser:asauser={username}")
         if data:
             for service in data["asauser:asauser"]:
@@ -62,10 +79,20 @@ class ServiceProcessor(object):
         return None
 
     async def delete_service(self,username):
+        """
+        Delete service
+        :param username: vpn name
+        :return: true
+        """
+
         resp = await self.nso.delete(f"restconf/data/tailf-ncs:services/asauser:asauser={username}",{})
         return True
 
     async def get_latency(self):
+        """
+        Check vpn nodes latency
+        :return: vpn nodes latency from test server
+        """
         latency_info = {}
         for i in range(0,len(self.device_list)):
             try:

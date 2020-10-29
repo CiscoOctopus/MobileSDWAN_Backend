@@ -4,6 +4,9 @@ import aiohttp
 
 
 class NSOApiWrapper(object):
+    """
+    NSO RESTCONF API Wrapper
+    """
 
     def __init__(self,address,port,username,password):
         self.address=address
