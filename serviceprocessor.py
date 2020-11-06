@@ -18,7 +18,7 @@ class ServiceProcessor(object):
         self.device_ip = list(config["devices"].values())
         self.mapping={
             "apple":3092,
-            "ibm":3093
+            "cisco":3093
         }
 
     async def create_service(self,username,company_name,password):
